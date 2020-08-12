@@ -6,6 +6,8 @@ import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../src/Dashboard";
 import AddBranch from "../src/AddBranch";
+import Branches from "./Branches";
+import BranchInfo from "./BranchInfo";
 
 import Home from "./Home";
 
@@ -31,6 +33,8 @@ class App extends React.Component {
                     <div>
                       <PrivateRoute exact path="/" component={Dashboard} />
                       <PrivateRoute path="/addbranch" component={AddBranch} />
+                      <PrivateRoute path="/branches" component={Branches} />
+                      <PrivateRoute path="/branchinfo" component={BranchInfo} />
                     </div>
                   )}
                 />

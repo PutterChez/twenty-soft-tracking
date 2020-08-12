@@ -53,35 +53,8 @@ class Dashboard extends React.Component {
                       </a>
                     </div>
                   </div>
-                  {/* <Sidebar branches={this.state.branches}></Sidebar> */}
                   <div className="card-body table-responsive p-0">
                     <Sidebar branches={this.state.branches}></Sidebar>
-                    {/* <table className="table table-striped table-valign-middle">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Branch 1</td>
-                          <td>
-                            <a href="#" className="text-muted">
-                              <i className="fas fa-check" />
-                            </a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Branch 2</td>
-                          <td>
-                            <a href="#" className="text-muted">
-                              <i className="fas fa-times" />
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> */}
                   </div>
                 </div>
                 {/* /.card */}

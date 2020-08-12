@@ -67,7 +67,7 @@ class Menu extends React.Component {
               </li>
 
               <li className="nav-item has-treeview ">
-                <a href="/" className="nav-link">
+                <a href="branches" className="nav-link">
                   <i className="nav-icon fas fa-code-branch" />
                   <p>Branches</p>
                 </a>

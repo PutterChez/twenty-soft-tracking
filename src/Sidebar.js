@@ -21,6 +21,8 @@ class Sidebar extends React.Component {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Orders</th>
+              <th>Delivering</th>
               <th>Status</th>
             </tr>
           </thead>

@@ -65,14 +65,6 @@ function AddBranch() {
                     <option>Closed</option>
                   </select>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="inputVehicles">Vehicles</label>
-                  <input
-                    type="number"
-                    id="inputVehicles"
-                    className="form-control"
-                  />
-                </div>
               </div>
               {/* /.card-body */}
             </div>
@@ -81,7 +73,7 @@ function AddBranch() {
           <div className="col-md-6">
             <div className="card card-secondary">
               <div className="card-header">
-                <h3 className="card-title">Budget</h3>
+                <h3 className="card-title">Logistics</h3>
                 <div className="card-tools">
                   <button
                     type="button"
@@ -94,30 +86,79 @@ function AddBranch() {
                   </button>
                 </div>
               </div>
+
               <div className="card-body">
                 <div className="form-group">
-                  <label htmlFor="inputEstimatedBudget">Estimated budget</label>
+                  <label htmlFor="inputStatus">Branch Location</label>
+                  <select className="form-control custom-select">
+                    <option selected disabled>
+                      Select one
+                    </option>
+                    <option>Bang Bon</option>
+                    <option>Bang Kapi</option>
+                    <option>Bang Khae</option>
+                    <option>Bang Khen</option>
+                    <option>Bang Kho Laem</option>
+                    <option>Bang Na 47</option>
+                    <option>Bang Phlat</option>
+                    <option>Bang Rak</option>
+                    <option>Bang Sue</option>
+                    <option>Bangkok Noi</option>
+                    <option>Bangkok Yai</option>
+                    <option>Bueng Kum</option>
+                    <option>Chatuchak</option>
+                    <option>Chom Thong</option>
+                    <option>Din Daeng</option>
+                    <option>Don Mueang</option>
+                    <option>Dusit</option>
+                    <option>Huai Khwang</option>
+                    <option>Khan Na Yao</option>
+                    <option>Khlong Sam Wa</option>
+                    <option>Khlong San</option>
+                    <option>Khlong Toei</option>
+                    <option>Lak Si</option>
+                    <option>Lat Krabang</option>
+                    <option>Lat Phrao</option>
+                    <option>Min Buri</option>
+                    <option>Nong Chok</option>
+                    <option>Nong Khaem</option>
+                    <option>Pathum Wan</option>
+                    <option>Phasi Charoen</option>
+                    <option>Phaya Thai</option>
+                    <option>Phra Khanong</option>
+                    <option>Phra Nakhon</option>
+                    <option>Pom Prap Sattru Phai</option>
+                    <option>Prawet</option>
+                    <option>Rat Burana</option>
+                    <option>Ratchathewi</option>
+                    <option>Sai Mai</option>
+                    <option>Samphanthawong</option>
+                    <option>Saphan Sung</option>
+                    <option>Sathon</option>
+                    <option>Suan Luang</option>
+                    <option>Taling Chan</option>
+                    <option>Thawi Watthana</option>
+                    <option>Thon Buri</option>
+                    <option>Thung Khru</option>
+                    <option>Wang Thonglang</option>
+                    <option>Watthana</option>
+                    <option>Yan Nawa</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="inputVehicles">Vehicles</label>
                   <input
                     type="number"
-                    id="inputEstimatedBudget"
+                    id="inputVehicles"
                     className="form-control"
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="inputSpentBudget">Total amount spent</label>
+                  <label htmlFor="inputDrivers">Drivers</label>
                   <input
                     type="number"
-                    id="inputSpentBudget"
-                    className="form-control"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="inputEstimatedDuration">
-                    Estimated project duration
-                  </label>
-                  <input
-                    type="number"
-                    id="inputEstimatedDuration"
+                    id="inputDrivers"
                     className="form-control"
                   />
                 </div>
