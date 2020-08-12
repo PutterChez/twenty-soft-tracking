@@ -3,7 +3,6 @@ import React from "react";
 function AddBranch() {
   return (
     <div className="content-wrapper">
-      {/* Content Header (Page header) */}
       <section className="content-header">
         <div className="container-fluid">
           <div className="row mb-2">

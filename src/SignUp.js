@@ -50,10 +50,15 @@ const SignUp = ({ history }) => {
     <div>
       <body class="hold-transition register-page">
         <div className="register-box">
+          <div class="text-center">
+            <img
+              class="profile-user-img img-fluid img-circle"
+              src="dist/img/TrackingLogo.png"
+              alt="User profile picture"
+            ></img>
+          </div>
           <div className="register-logo">
-            <a href="../../index2.html">
-              <b>TwentySoft</b> Tracking
-            </a>
+            <b>TwentySoft</b> Tracking
           </div>
           <div className="card">
             <div className="card-body register-card-body">

@@ -1,7 +1,7 @@
 import React from "react";
-import SidebarItemComponent from "./SidebarItem";
+import BranchListItem from "./BranchListItem";
 
-class Sidebar extends React.Component {
+class BranchList extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -13,23 +13,26 @@ class Sidebar extends React.Component {
 
     if (branches) {
       return (
-        <table className="table table-striped table-valign-middle">
+        <table className="table table-striped projects">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Orders</th>
-              <th>Delivering</th>
-              <th>Status</th>
+              <th style={{ width: "20%" }}>Branch Name</th>
+              <th style={{ width: "30%" }}>Packages to Deliver</th>
+              <th>Deliveries Progress</th>
+              <th style={{ width: "8%" }} className="text-center">
+                Status
+              </th>
+              <th style={{ width: "20%" }}></th>
             </tr>
           </thead>
           <tbody>
             {branches.map((_branch, _index) => {
               return (
-                <SidebarItemComponent
+                <BranchListItem
                   key={_index}
                   _branch={_branch}
                   _index={_index}
-                ></SidebarItemComponent>
+                ></BranchListItem>
               );
             })}
           </tbody>
@@ -41,4 +44,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default BranchList;

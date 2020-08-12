@@ -1,4 +1,5 @@
 import React from "react";
+import BranchList from "./BranchList";
 
 const firebase = require("firebase");
 
@@ -31,10 +32,9 @@ class Branches extends React.Component {
           </div>
         </section>
         <section className="content">
-          {/* Default box */}
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Branches</h3>
+              <h3 className="card-title">Branch List</h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -57,53 +57,7 @@ class Branches extends React.Component {
               </div>
             </div>
             <div className="card-body p-0">
-              <table className="table table-striped projects">
-                <thead>
-                  <tr>
-                    <th style={{ width: "1%" }}>#</th>
-                    <th style={{ width: "20%" }}>Branch Name</th>
-                    <th style={{ width: "30%" }}>Packages to Deliver</th>
-                    <th>Deliveries Progress</th>
-                    <th style={{ width: "8%" }} className="text-center">
-                      Status
-                    </th>
-                    <th style={{ width: "20%" }}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>#</td>
-                    <td>
-                      <a>AdminLTE v3</a>
-                      <br />
-                      <small>Created 01.01.2019</small>
-                    </td>
-                    <td>12</td>
-                    <td className="project_progress">
-                      <div className="progress progress-sm">
-                        <div
-                          className="progress-bar bg-green"
-                          role="progressbar"
-                          aria-volumenow={57}
-                          aria-volumemin={0}
-                          aria-volumemax={100}
-                          style={{ width: "57%" }}
-                        ></div>
-                      </div>
-                      <small>57% Complete</small>
-                    </td>
-                    <td className="project-state">
-                      <span className="badge badge-success">Success</span>
-                    </td>
-                    <td className="project-actions text-right">
-                      <a className="btn btn-primary btn-sm" href="#">
-                        <i className="fas fa-folder"></i>
-                        View
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <BranchList branches={this.state.branches}></BranchList>
             </div>
             {/* /.card-body */}
           </div>
@@ -113,6 +67,20 @@ class Branches extends React.Component {
       </div>
     );
   }
+
+  componentDidMount = () => {
+    firebase
+      .firestore()
+      .collection("branches")
+      .onSnapshot((serverUpdate) => {
+        const branches = serverUpdate.docs.map((_docs) => {
+          const data = _docs.data();
+          data["id"] = _docs.id;
+          return data;
+        });
+        this.setState({ branches: branches });
+      });
+  };
 }
 
 export default Branches;
