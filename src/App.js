@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import { AuthProvider } from "./Auth";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../src/Dashboard";
+import AddBranch from "../src/AddBranch";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from "./Home";
+
+const firebase = require("firebase");
+
+class App extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <AuthProvider>
+          <Router>
+            <Switch>
+              {/* <PrivateRoute exact path="/" component={Home} /> */}
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={SignUp} />
+              <Home>
+                <Route
+                  component={({ match }) => (
+                    <div>
+                      <PrivateRoute exact path="/" component={Dashboard} />
+                      <PrivateRoute path="/addbranch" component={AddBranch} />
+                    </div>
+                  )}
+                />
+              </Home>
+            </Switch>
+          </Router>
+        </AuthProvider>
+      </div>
+    );
+  }
 }
 
 export default App;
