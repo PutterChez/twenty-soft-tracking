@@ -11,7 +11,6 @@ class PackageList extends React.Component {
 
   render() {
     const { packages } = this.props;
-    console.log(this.props);
 
     if (packages) {
       return (

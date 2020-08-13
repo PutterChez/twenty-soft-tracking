@@ -16,23 +16,10 @@ class AddBranch extends React.Component {
     };
   }
 
-  nameHandler = (event) => {
-    this.setState({ name: event.target.value });
-  };
-  descHandler = (event) => {
-    this.setState({ desc: event.target.value });
-  };
-  statusHandler = (event) => {
-    this.setState({ status: event.target.value });
-  };
-  locationHandler = (event) => {
-    this.setState({ location: event.target.value });
-  };
-  vehiclesHandler = (event) => {
-    this.setState({ vehicles: event.target.value });
-  };
-  driversHandler = (event) => {
-    this.setState({ drivers: event.target.value });
+  onChange = (e) => {
+    const state = this.state;
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   };
 
   render() {
@@ -79,26 +66,27 @@ class AddBranch extends React.Component {
                     <label htmlFor="inputName">Branch Name</label>
                     <input
                       type="text"
-                      id="inputName"
+                      name="name"
                       className="form-control"
-                      onChange={this.nameHandler}
+                      onChange={this.onChange}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputDescription">Branch Description</label>
                     <textarea
-                      id="inputDescription"
+                      name="desc"
                       className="form-control"
                       rows={4}
                       defaultValue={""}
-                      onChange={this.descHandler}
+                      onChange={this.onChange}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputStatus">Status</label>
                     <select
                       className="form-control custom-select"
-                      onChange={this.statusHandler}
+                      name="status"
+                      onChange={this.onChange}
                     >
                       <option selected disabled>
                         Status of the branch
@@ -132,7 +120,8 @@ class AddBranch extends React.Component {
                     <label htmlFor="inputStatus">Branch Location</label>
                     <select
                       className="form-control custom-select"
-                      onChange={this.locationHandler}
+                      name="location"
+                      onChange={this.onChange}
                     >
                       <option>Bang Bon</option>
                       <option>Bang Kapi</option>
@@ -190,18 +179,18 @@ class AddBranch extends React.Component {
                     <label htmlFor="inputVehicles">Vehicles</label>
                     <input
                       type="number"
-                      id="inputVehicles"
+                      name="vehicles"
                       className="form-control"
-                      onChange={this.vehiclesHandler}
+                      onChange={this.onChange}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputDrivers">Drivers</label>
                     <input
                       type="number"
-                      id="inputDrivers"
+                      name="drivers"
                       className="form-control"
-                      onChange={this.driversHandler}
+                      onChange={this.onChange}
                     />
                   </div>
                 </div>

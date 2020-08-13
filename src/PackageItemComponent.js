@@ -21,15 +21,24 @@ class PackageItemComponent extends React.Component {
               />
             </div>
             <h3 className="widget-user-username">{_package.name}</h3>
-            <h5 className="widget-user-desc">{_package.id}</h5>
+            <h5 className="widget-user-desc">
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              }).format(_package.timestamp.toDate())}
+            </h5>
           </div>
           <div className="card-footer p-0">
             <ul className="nav flex-column">
               <li className="nav-item">
                 <a href="#" className="nav-link">
-                  Reciever ID:
+                  Receiver ID:
                   <span className="float-right badge bg-primary">
-                    {_package.recieverID}
+                    {_package.receiverID}
                   </span>
                 </a>
               </li>

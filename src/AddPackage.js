@@ -5,8 +5,21 @@ const firebase = require("firebase");
 class AddPackage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: null,
+      receiverID: null,
+      senderID: null,
+      start: null,
+      destination: null,
+    };
   }
+
+  onChange = (e) => {
+    const state = this.state;
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+    console.log(state);
+  };
 
   render() {
     return (
@@ -33,87 +46,95 @@ class AddPackage extends React.Component {
               <h3 className="card-title">Package Details</h3>
             </div>
             <div className="card-body">
-              <form role="form">
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div className="form-group">
-                      <label>Package Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter ..."
-                      />
-                    </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="form-group">
+                    <label>Package Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      placeholder="Enter ..."
+                      onChange={this.onChange}
+                    />
                   </div>
                 </div>
+              </div>
 
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div className="form-group">
-                      <label>Receiver ID</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter ..."
-                      />
-                    </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="form-group">
+                    <label>Receiver ID</label>
+                    <input
+                      type="text"
+                      name="receiverID"
+                      className="form-control"
+                      placeholder="Enter ..."
+                      onChange={this.onChange}
+                    />
                   </div>
                 </div>
+              </div>
 
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div className="form-group">
-                      <label>Sender Branch</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter ..."
-                      />
-                    </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="form-group">
+                    <label>Sender Branch</label>
+                    <input
+                      type="text"
+                      name="senderID"
+                      className="form-control"
+                      placeholder="Enter ..."
+                      onChange={this.onChange}
+                    />
                   </div>
                 </div>
+              </div>
 
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div className="form-group">
-                      <label>Start Address</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter ..."
-                      />
-                    </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="form-group">
+                    <label>Start Address</label>
+                    <input
+                      type="text"
+                      name="start"
+                      className="form-control"
+                      placeholder="Enter ..."
+                      onChange={this.onChange}
+                    />
                   </div>
                 </div>
+              </div>
 
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div className="form-group">
-                      <label>Destination Address</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter ..."
-                      />
-                    </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="form-group">
+                    <label>Destination Address</label>
+                    <input
+                      type="text"
+                      name="destination"
+                      className="form-control"
+                      placeholder="Enter ..."
+                      onChange={this.onChange}
+                    />
                   </div>
                 </div>
+              </div>
 
-                <div className="row">
-                  <div className="col-12">
-                    <a href="/" className="btn btn-secondary">
-                      Cancel
-                    </a>
-                    <button
-                      type="submit"
-                      className="btn btn-success float-right"
-                      onClick={this.newBranch}
-                    >
-                      Add Package
-                    </button>
-                  </div>
+              <div className="row">
+                <div className="col-12">
+                  <a href="/" className="btn btn-secondary">
+                    Cancel
+                  </a>
+                  <button
+                    type="submit"
+                    className="btn btn-success float-right"
+                    onClick={this.newPackage}
+                  >
+                    Add Package
+                  </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -121,28 +142,30 @@ class AddPackage extends React.Component {
     );
   }
 
-  newBranch = async () => {
+  newPackage = async () => {
     var user = firebase.auth().currentUser.uid;
 
-    const branch = {
+    const parsel = {
       name: this.state.name,
-      desc: this.state.desc,
-      status: this.state.status,
-      location: this.state.location,
-      vehicles: this.state.vehicles,
-      drivers: this.state.drivers,
-      creator: user,
+      senderID: this.state.senderID,
+      receiverID: this.state.receiverID,
+      start: this.state.start,
+      destination: this.state.destination,
     };
 
     await firebase
       .firestore()
-      .collection("branches")
+      .collection("packages")
       .doc()
       .set({
-        name: branch.name,
-        description: branch.desc,
-        status: branch.status,
+        name: parsel.name,
+        senderID: parsel.senderID,
+        receiverID: parsel.receiverID,
+        start: parsel.start,
+        destination: parsel.destination,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        location: [0, 0],
+        estTime: "0:00",
       })
       .then(() => {
         window.location.href = "./branches";
