@@ -36,6 +36,10 @@ class Branches extends React.Component {
             <div className="card-header">
               <h3 className="card-title">Branch List</h3>
               <div className="card-tools">
+                <a href="addbranch" className="btn btn-success">
+                  <i className="fas fa-plus" />
+                  Add Branch
+                </a>
                 <button
                   type="button"
                   className="btn btn-tool"
@@ -69,9 +73,12 @@ class Branches extends React.Component {
   }
 
   componentDidMount = () => {
+    var user = firebase.auth().currentUser.uid;
+
     firebase
       .firestore()
       .collection("branches")
+      .where("creator","==",user)
       .onSnapshot((serverUpdate) => {
         const branches = serverUpdate.docs.map((_docs) => {
           const data = _docs.data();

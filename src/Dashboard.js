@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar";
+import { useLocation } from 'react-router-dom'
 
 const firebase = require("firebase");
 
@@ -9,6 +10,7 @@ class Dashboard extends React.Component {
     this.state = {
       branches: null,
     };
+
   }
 
   render() {
@@ -47,9 +49,8 @@ class Dashboard extends React.Component {
                   <div className="card-header border-0">
                     <h3 className="card-title">Branches</h3>
                     <div className="card-tools">
-                      <a href="addbranch" className="btn btn-success">
-                        <i className="fas fa-plus" />
-                        Add Branch
+                      <a href="branches" className="btn btn-secondary">
+                        Manage Branches
                       </a>
                     </div>
                   </div>

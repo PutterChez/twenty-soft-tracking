@@ -3,13 +3,29 @@ import React from "react";
 const firebase = require("firebase");
 
 class BranchInfo extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      branches: null,
+      branch: {},
+      key: ''
     };
   }
 
+  componentDidMount() {
+    const ref = firebase.firestore().collection("branches").doc(this.props.match.params.id);
+    ref.get().then((doc) => {
+      if (doc.exists) {
+        this.setState({
+          branch: doc.data(),
+          key: doc.id,
+          isLoading: false
+        });
+      } else {
+        console.log("No such document!");
+      }
+    });
+  }
+  
   render() {
     return (
       <div className="content-wrapper">
@@ -37,18 +53,18 @@ class BranchInfo extends React.Component {
                 <div className="card card-primary card-outline">
                   <div className="card-body box-profile">
                     <h3 className="profile-username text-center">
-                      Nina Mcintire
+                      {this.state.branch.name}
                     </h3>
                     <p className="text-muted text-center">Current Status</p>
                     <ul className="list-group list-group-unbordered mb-3">
                       <li className="list-group-item">
-                        <b>Status</b> <a className="float-right">1,322</a>
+                        <b>Status</b> <a className="float-right">{this.state.branch.status}</a>
                       </li>
                       <li className="list-group-item">
-                        <b>Orders</b> <a className="float-right">543</a>
+                        <b>Orders</b> <a className="float-right">{this.state.branch.orders}</a>
                       </li>
                       <li className="list-group-item">
-                        <b>Delivering</b> <a className="float-right">13,287</a>
+                        <b>Delivering</b> <a className="float-right">{this.state.branch.deliveries}</a>
                       </li>
                     </ul>
                   </div>
@@ -62,24 +78,23 @@ class BranchInfo extends React.Component {
                       <i className="fas fa-book mr-1" /> Description
                     </strong>
                     <p className="text-muted">
-                      B.S. in Computer Science from the University of Tennessee
-                      at Knoxville
+                      {this.state.branch.description}
                     </p>
                     <hr />
                     <strong>
                       <i className="fas fa-map-marker-alt mr-1" /> Location
                     </strong>
-                    <p className="text-muted">Malibu, California</p>
+                    <p className="text-muted">{this.state.branch.location}</p>
                     <hr />
                     <strong>
                       <i className="fas fa-truck mr-1" /> Vehicles
                     </strong>
-                    <p className="text-muted">12</p>
+                    <p className="text-muted">{this.state.branch.vehicles}</p>
                     <hr />
                     <strong>
                       <i className="far fa-user mr-1" /> Drivers
                     </strong>
-                    <p className="text-muted">6</p>
+                    <p className="text-muted">{this.state.branch.drivers}</p>
                   </div>
                   {/* /.card-body */}
                 </div>
@@ -321,5 +336,6 @@ class BranchInfo extends React.Component {
       </div>
     );
   }
+  
 }
 export default BranchInfo;

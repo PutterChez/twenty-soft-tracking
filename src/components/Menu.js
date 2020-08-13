@@ -13,13 +13,23 @@ class Menu extends React.Component {
 
     this.state = {
       name: username,
-      addingBranch: null,
-      branchName: null,
+      pathname: window.location.pathname,
+      dashboardSelected: "nav-item has-treeview",
+      branchesSelected: "nav-item has-treeview",
     };
   }
 
   render() {
     const { branches, classes, selectedBranchIndex } = this.props;
+
+    if(this.state.pathname == "/"){
+      this.state.dashboardSelected = "nav-item has-treeview menu-open"
+      this.state.branchesSelected = "nav-item has-treeview"
+    }
+    else if(this.state.pathname == "/branches"){
+      this.state.dashboardSelected = "nav-item has-treeview"
+      this.state.branchesSelected = "nav-item has-treeview menu-open"
+    }
 
     return (
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -59,14 +69,14 @@ class Menu extends React.Component {
             >
               <li className="nav-header">ADMIN MANAGEMENT</li>
 
-              <li className="nav-item has-treeview menu-open">
+              <li className={this.state.dashboardSelected}>
                 <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>Dashboard</p>
                 </a>
               </li>
 
-              <li className="nav-item has-treeview ">
+              <li className={this.state.branchesSelected}>
                 <a href="branches" className="nav-link">
                   <i className="nav-icon fas fa-code-branch" />
                   <p>Branches</p>

@@ -34,7 +34,7 @@ class App extends React.Component {
                       <PrivateRoute exact path="/" component={Dashboard} />
                       <PrivateRoute path="/addbranch" component={AddBranch} />
                       <PrivateRoute path="/branches" component={Branches} />
-                      <PrivateRoute path="/branchinfo" component={BranchInfo} />
+                      <PrivateRoute exact path="/branchinfo/:id" component={BranchInfo} />
                     </div>
                   )}
                 />
