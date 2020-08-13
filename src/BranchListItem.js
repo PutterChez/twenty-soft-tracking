@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 class BranchListItem extends React.Component {
   constructor() {
     super();
     this.state = {
       statusButton: "badge badge-success",
-    }
+    };
   }
 
   render() {
@@ -14,14 +14,13 @@ class BranchListItem extends React.Component {
 
     var progress;
 
-    if(_branch.orders != 0){
+    if (_branch.orders != 0) {
       progress = parseInt((_branch.delivering / _branch.orders) * 100);
-    }
-    else{
+    } else {
       progress = 0;
     }
 
-    if(_branch.status == "Closed"){
+    if (_branch.status == "Closed") {
       this.state.statusButton = "badge badge-danger";
     }
 
@@ -32,9 +31,20 @@ class BranchListItem extends React.Component {
     return (
       <tr>
         <td>
-          <a><Link to={`/branchinfo/${_branch.id}`}>{_branch.name}</Link></a>
+          <a>
+            <Link to={`/branchinfo/${_branch.id}`}>{_branch.name}</Link>
+          </a>
           <br />
-          <small>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(_branch.timestamp.toDate())}</small>
+          <small>
+            {new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }).format(_branch.timestamp.toDate())}
+          </small>
         </td>
         <td>{_branch.orders}</td>
         <td className="project_progress">
@@ -54,9 +64,11 @@ class BranchListItem extends React.Component {
           <span className={this.state.statusButton}>{_branch.status}</span>
         </td>
         <td className="project-actions text-right">
-          <a className="btn btn-primary btn-sm" href="#">
-            <i className="fas fa-folder"></i>
-            View
+          <a className="btn btn-primary btn-sm">
+            <Link to={`/branchinfo/${_branch.id}`} style={{ color: "white" }}>
+              <i className="fas fa-folder"></i>
+              View
+            </Link>
           </a>
         </td>
       </tr>

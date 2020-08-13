@@ -63,11 +63,8 @@ class Branches extends React.Component {
             <div className="card-body p-0">
               <BranchList branches={this.state.branches}></BranchList>
             </div>
-            {/* /.card-body */}
           </div>
-          {/* /.card */}
         </section>
-        {/* /.content */}
       </div>
     );
   }
@@ -78,7 +75,7 @@ class Branches extends React.Component {
     firebase
       .firestore()
       .collection("branches")
-      .where("creator","==",user)
+      .where("creator", "==", user)
       .onSnapshot((serverUpdate) => {
         const branches = serverUpdate.docs.map((_docs) => {
           const data = _docs.data();
