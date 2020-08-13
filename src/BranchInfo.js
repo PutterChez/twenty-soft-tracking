@@ -1,4 +1,5 @@
 import React from "react";
+import PackageList from "./PackageList";
 
 const firebase = require("firebase");
 
@@ -8,6 +9,7 @@ class BranchInfo extends React.Component {
     this.state = {
       branch: {},
       key: "",
+      packages: null,
       name: null,
       desc: null,
       status: null,
@@ -36,6 +38,19 @@ class BranchInfo extends React.Component {
           key: doc.id,
           isLoading: false,
         });
+
+        firebase
+          .firestore()
+          .collection("packages")
+          .where("senderID", "==", doc.id)
+          .onSnapshot((serverUpdate) => {
+            const packages = serverUpdate.docs.map((_docs) => {
+              const data = _docs.data();
+              data["id"] = _docs.id;
+              return data;
+            });
+            this.setState({ packages: packages });
+          });
       } else {
         console.log("No such document!");
       }
@@ -162,7 +177,11 @@ class BranchInfo extends React.Component {
                   {/* /.card-header */}
                   <div className="card-body">
                     <div className="tab-content">
-                      <div className="active tab-pane" id="activity"></div>
+                      <div className="active tab-pane" id="activity">
+                        <PackageList
+                          packages={this.state.packages}
+                        ></PackageList>
+                      </div>
                       {/* /.tab-pane */}
                       <div className="tab-pane" id="timeline">
                         <div className="form-horizontal">

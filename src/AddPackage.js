@@ -50,14 +50,12 @@ class AddPackage extends React.Component {
                 <div className="row">
                   <div className="col-sm-6">
                     <div className="form-group">
-                      <label>Reciever ID</label>
-                      <select className="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>option 4</option>
-                        <option>option 5</option>
-                      </select>
+                      <label>Receiver ID</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter ..."
+                      />
                     </div>
                   </div>
                 </div>
@@ -66,13 +64,11 @@ class AddPackage extends React.Component {
                   <div className="col-sm-6">
                     <div className="form-group">
                       <label>Sender Branch</label>
-                      <select className="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>option 4</option>
-                        <option>option 5</option>
-                      </select>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter ..."
+                      />
                     </div>
                   </div>
                 </div>
