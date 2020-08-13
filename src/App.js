@@ -10,6 +10,7 @@ import Branches from "./Branches";
 import BranchInfo from "./BranchInfo";
 
 import Home from "./Home";
+import AddPackage from "./AddPackage";
 
 const firebase = require("firebase");
 
@@ -34,7 +35,11 @@ class App extends React.Component {
                       <PrivateRoute exact path="/" component={Dashboard} />
                       <PrivateRoute path="/addbranch" component={AddBranch} />
                       <PrivateRoute path="/branches" component={Branches} />
-                      <PrivateRoute exact path="/branchinfo/:id" component={BranchInfo} />
+                      <PrivateRoute
+                        path="/branchinfo/:id"
+                        component={BranchInfo}
+                      />
+                      <PrivateRoute path="/addpackage" component={AddPackage} />
                     </div>
                   )}
                 />

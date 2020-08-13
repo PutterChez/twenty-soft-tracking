@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter, Redirect } from "react-router";
 
 const firebase = require("firebase");
 
@@ -14,27 +13,27 @@ class AddBranch extends React.Component {
       vehicles: null,
       drivers: null,
       creator: null,
-    }
+    };
   }
 
   nameHandler = (event) => {
-    this.setState({name: event.target.value});
-  }
+    this.setState({ name: event.target.value });
+  };
   descHandler = (event) => {
-    this.setState({desc: event.target.value});
-  }
+    this.setState({ desc: event.target.value });
+  };
   statusHandler = (event) => {
-    this.setState({status: event.target.value});
-  }
+    this.setState({ status: event.target.value });
+  };
   locationHandler = (event) => {
-    this.setState({location: event.target.value});
-  }
+    this.setState({ location: event.target.value });
+  };
   vehiclesHandler = (event) => {
-    this.setState({vehicles: event.target.value});
-  }
+    this.setState({ vehicles: event.target.value });
+  };
   driversHandler = (event) => {
-    this.setState({drivers: event.target.value});
-  }
+    this.setState({ drivers: event.target.value });
+  };
 
   render() {
     return (
@@ -78,7 +77,12 @@ class AddBranch extends React.Component {
                 <div className="card-body">
                   <div className="form-group">
                     <label htmlFor="inputName">Branch Name</label>
-                    <input type="text" id="inputName" className="form-control" onChange={this.nameHandler}/>
+                    <input
+                      type="text"
+                      id="inputName"
+                      className="form-control"
+                      onChange={this.nameHandler}
+                    />
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputDescription">Branch Description</label>
@@ -92,8 +96,13 @@ class AddBranch extends React.Component {
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputStatus">Status</label>
-                    <select className="form-control custom-select" onChange={this.statusHandler}>
-                      <option selected disabled>Status of the branch</option>
+                    <select
+                      className="form-control custom-select"
+                      onChange={this.statusHandler}
+                    >
+                      <option selected disabled>
+                        Status of the branch
+                      </option>
                       <option>Active</option>
                       <option>Closed</option>
                     </select>
@@ -117,11 +126,14 @@ class AddBranch extends React.Component {
                     </button>
                   </div>
                 </div>
-  
+
                 <div className="card-body">
                   <div className="form-group">
                     <label htmlFor="inputStatus">Branch Location</label>
-                    <select className="form-control custom-select" onChange={this.locationHandler}>
+                    <select
+                      className="form-control custom-select"
+                      onChange={this.locationHandler}
+                    >
                       <option>Bang Bon</option>
                       <option>Bang Kapi</option>
                       <option>Bang Khae</option>
@@ -173,7 +185,7 @@ class AddBranch extends React.Component {
                       <option>Yan Nawa</option>
                     </select>
                   </div>
-  
+
                   <div className="form-group">
                     <label htmlFor="inputVehicles">Vehicles</label>
                     <input
@@ -205,7 +217,8 @@ class AddBranch extends React.Component {
                 type="submit"
                 className="btn btn-success float-right"
                 onClick={this.newBranch}
-              >Create new Project
+              >
+                Create new Project
               </button>
             </div>
           </div>
@@ -214,7 +227,7 @@ class AddBranch extends React.Component {
     );
   }
 
-  newBranch = async() => {
+  newBranch = async () => {
     var user = firebase.auth().currentUser.uid;
 
     const branch = {
@@ -225,9 +238,9 @@ class AddBranch extends React.Component {
       vehicles: this.state.vehicles,
       drivers: this.state.drivers,
       creator: user,
-    }
+    };
 
-     await firebase
+    await firebase
       .firestore()
       .collection("branches")
       .doc()
@@ -243,10 +256,10 @@ class AddBranch extends React.Component {
         delivering: 0,
         orders: 0,
       })
-      .then(()=>{
-        window.location.href = './branches';
-      })
-  } 
+      .then(() => {
+        window.location.href = "./branches";
+      });
+  };
 }
 
 export default AddBranch;

@@ -16,19 +16,25 @@ class Menu extends React.Component {
       pathname: window.location.pathname,
       dashboardSelected: "nav-item has-treeview",
       branchesSelected: "nav-item has-treeview",
+      packageSelected: "nav-item has-treeview",
     };
   }
 
   render() {
     const { branches, classes, selectedBranchIndex } = this.props;
 
-    if(this.state.pathname == "/"){
-      this.state.dashboardSelected = "nav-item has-treeview menu-open"
-      this.state.branchesSelected = "nav-item has-treeview"
-    }
-    else if(this.state.pathname == "/branches"){
-      this.state.dashboardSelected = "nav-item has-treeview"
-      this.state.branchesSelected = "nav-item has-treeview menu-open"
+    if (this.state.pathname == "/") {
+      this.state.dashboardSelected = "nav-item has-treeview menu-open";
+      this.state.branchesSelected = "nav-item has-treeview";
+      this.state.packageSelected = "nav-item has-treeview";
+    } else if (this.state.pathname == "/branches") {
+      this.state.dashboardSelected = "nav-item has-treeview";
+      this.state.branchesSelected = "nav-item has-treeview menu-open";
+      this.state.packageSelected = "nav-item has-treeview";
+    } else if (this.state.pathname == "/addpackage") {
+      this.state.dashboardSelected = "nav-item has-treeview";
+      this.state.branchesSelected = "nav-item has-treeview";
+      this.state.packageSelected = "nav-item has-treeview menu-open";
     }
 
     return (
@@ -77,40 +83,19 @@ class Menu extends React.Component {
               </li>
 
               <li className={this.state.branchesSelected}>
-                <a href="branches" className="nav-link">
+                <a href="/branches" className="nav-link">
                   <i className="nav-icon fas fa-code-branch" />
                   <p>Branches</p>
                 </a>
               </li>
 
-              <li className="nav-item has-treeview">
-                <a href="/" className="nav-link">
-                  <i className="nav-icon fas fa-chart-pie" />
-                  <p>
-                    Charts
-                    <i className="right fas fa-angle-left" />
-                  </p>
+              <li className="nav-header">PACKAGE SIMULATION</li>
+
+              <li className={this.state.packageSelected}>
+                <a href="/addpackage" className="nav-link">
+                  <i className="nav-icon fas fa-box-open" />
+                  <p>Create</p>
                 </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/charts/chartjs.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/charts/flot.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/charts/inline.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
             </ul>
           </nav>

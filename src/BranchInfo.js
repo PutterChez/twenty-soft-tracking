@@ -7,25 +7,41 @@ class BranchInfo extends React.Component {
     super(props);
     this.state = {
       branch: {},
-      key: ''
+      key: "",
+      name: null,
+      desc: null,
+      status: null,
+      location: null,
+      vehicles: null,
+      drivers: null,
+      deletionText: null,
     };
   }
 
+  onChange = (e) => {
+    const state = this.state;
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  };
+
   componentDidMount() {
-    const ref = firebase.firestore().collection("branches").doc(this.props.match.params.id);
+    const ref = firebase
+      .firestore()
+      .collection("branches")
+      .doc(this.props.match.params.id);
     ref.get().then((doc) => {
       if (doc.exists) {
         this.setState({
           branch: doc.data(),
           key: doc.id,
-          isLoading: false
+          isLoading: false,
         });
       } else {
         console.log("No such document!");
       }
     });
   }
-  
+
   render() {
     return (
       <div className="content-wrapper">
@@ -38,7 +54,7 @@ class BranchInfo extends React.Component {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li className="breadcrumb-item active">Branches</li>
                 </ol>
@@ -58,13 +74,22 @@ class BranchInfo extends React.Component {
                     <p className="text-muted text-center">Current Status</p>
                     <ul className="list-group list-group-unbordered mb-3">
                       <li className="list-group-item">
-                        <b>Status</b> <a className="float-right">{this.state.branch.status}</a>
+                        <b>Status</b>{" "}
+                        <a className="float-right">
+                          {this.state.branch.status}
+                        </a>
                       </li>
                       <li className="list-group-item">
-                        <b>Orders</b> <a className="float-right">{this.state.branch.orders}</a>
+                        <b>Orders</b>{" "}
+                        <a className="float-right">
+                          {this.state.branch.orders}
+                        </a>
                       </li>
                       <li className="list-group-item">
-                        <b>Delivering</b> <a className="float-right">{this.state.branch.deliveries}</a>
+                        <b>Delivering</b>{" "}
+                        <a className="float-right">
+                          {this.state.branch.deliveries}
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -140,7 +165,7 @@ class BranchInfo extends React.Component {
                       <div className="active tab-pane" id="activity"></div>
                       {/* /.tab-pane */}
                       <div className="tab-pane" id="timeline">
-                        <form className="form-horizontal">
+                        <div className="form-horizontal">
                           <div className="form-group row">
                             <label
                               htmlFor="editName"
@@ -152,8 +177,9 @@ class BranchInfo extends React.Component {
                               <input
                                 type="text"
                                 className="form-control"
-                                id="editName"
+                                name="name"
                                 placeholder="New Name"
+                                onChange={this.onChange}
                               />
                             </div>
                           </div>
@@ -168,9 +194,31 @@ class BranchInfo extends React.Component {
                               <input
                                 type="text"
                                 className="form-control"
-                                id="editDesc"
+                                name="desc"
                                 placeholder="New Description"
+                                onChange={this.onChange}
                               />
+                            </div>
+                          </div>
+                          <div className="form-group row">
+                            <label
+                              htmlFor="newLocation"
+                              className="col-sm-2 col-form-label"
+                            >
+                              Status
+                            </label>
+                            <div className="col-sm-10">
+                              <select
+                                className="form-control custom-select"
+                                name="status"
+                                onChange={this.onChange}
+                              >
+                                <option selected disabled>
+                                  Select one
+                                </option>
+                                <option>Active</option>
+                                <option>Closed</option>
+                              </select>
                             </div>
                           </div>
                           <div className="form-group row">
@@ -181,7 +229,11 @@ class BranchInfo extends React.Component {
                               Location
                             </label>
                             <div className="col-sm-10">
-                              <select className="form-control custom-select">
+                              <select
+                                className="form-control custom-select"
+                                name="location"
+                                onChange={this.onChange}
+                              >
                                 <option selected disabled>
                                   Select one
                                 </option>
@@ -249,8 +301,9 @@ class BranchInfo extends React.Component {
                               <input
                                 type="number"
                                 className="form-control"
-                                id="editVehicles"
+                                name="vehicles"
                                 placeholder="New Vehicles"
+                                onChange={this.onChange}
                               />
                             </div>
                           </div>
@@ -265,27 +318,30 @@ class BranchInfo extends React.Component {
                               <input
                                 type="number"
                                 className="form-control"
-                                id="editDrivers"
+                                name="drivers"
                                 placeholder="New Drivers"
+                                onChange={this.onChange}
                               />
                             </div>
                           </div>
 
                           <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
-                              <button type="submit" className="btn btn-warning">
+                              <button
+                                className="btn btn-warning"
+                                onClick={this.editBranch}
+                              >
                                 Edit Branch
                               </button>
                             </div>
                           </div>
-                        </form>
+                        </div>
                       </div>
-                      {/* /.tab-pane */}
                       <div className="tab-pane" id="settings">
-                        <form className="form-horizontal">
+                        <div className="form-horizontal">
                           <div className="form-group row">
                             <label
-                              htmlFor="verifyDelete"
+                              name="verifyCheck"
                               className="col-sm-2 col-form-label"
                             >
                               Verify Deletion
@@ -294,48 +350,87 @@ class BranchInfo extends React.Component {
                               <input
                                 type="text"
                                 className="form-control"
-                                id="verifyDelete"
+                                name="deletionText"
                                 placeholder="Please enter the branch's name"
+                                onChange={this.onChange}
                               />
                             </div>
                           </div>
                           <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
-                              <div className="checkbox">
-                                <label>
-                                  <input type="checkbox" /> I understand that
-                                  this action cannot be undone
-                                </label>
-                              </div>
+                              <b>
+                                By confirming deletion, you understand that this
+                                action cannot be undone
+                              </b>
                             </div>
                           </div>
                           <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
-                              <button type="submit" className="btn btn-danger">
+                              <button
+                                type="submit"
+                                className="btn btn-danger"
+                                onClick={this.deleteBranch}
+                              >
                                 Delete
                               </button>
                             </div>
                           </div>
-                        </form>
+                        </div>
                       </div>
-                      {/* /.tab-pane */}
                     </div>
-                    {/* /.tab-content */}
                   </div>
-                  {/* /.card-body */}
                 </div>
-                {/* /.nav-tabs-custom */}
               </div>
-              {/* /.col */}
             </div>
-            {/* /.row */}
           </div>
-          {/* /.container-fluid */}
         </section>
-        {/* /.content */}
       </div>
     );
   }
-  
+
+  editBranch = async () => {
+    const branch = {
+      name: this.state.name,
+      desc: this.state.desc,
+      status: this.state.status,
+      location: this.state.location,
+      vehicles: this.state.vehicles,
+      drivers: this.state.drivers,
+    };
+
+    await firebase
+      .firestore()
+      .collection("branches")
+      .doc(this.state.key)
+      .update({
+        name: branch.name,
+        description: branch.desc,
+        status: branch.status,
+        location: branch.location,
+        vehicles: branch.vehicles,
+        drivers: branch.drivers,
+      });
+    window.location.href = "/branches";
+  };
+
+  deleteBranch = () => {
+    console.log(this.state.verifyCheck);
+    if (this.state.deletionText == this.state.branch.name) {
+      firebase
+        .firestore()
+        .collection("branches")
+        .doc(this.props.match.params.id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+          this.props.history.push("/");
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    } else {
+      window.alert("Please verify the deletion properly");
+    }
+  };
 }
 export default BranchInfo;

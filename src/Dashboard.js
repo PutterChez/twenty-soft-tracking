@@ -18,14 +18,12 @@ class Dashboard extends React.Component {
 
     return (
       <div className="content-wrapper">
-        {/* Content Header (Page header) */}
         <div className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
                 <h1 className="m-0 text-dark">Dashboard</h1>
               </div>
-              {/* /.col */}
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
@@ -33,14 +31,9 @@ class Dashboard extends React.Component {
                   </li>
                 </ol>
               </div>
-              {/* /.col */}
             </div>
-            {/* /.row */}
           </div>
-          {/* /.container-fluid */}
         </div>
-        {/* /.content-header */}
-        {/* Main content */}
         <div className="content">
           <div className="container-fluid">
             <div className="row">
@@ -58,9 +51,7 @@ class Dashboard extends React.Component {
                     <Sidebar branches={this.state.branches}></Sidebar>
                   </div>
                 </div>
-                {/* /.card */}
               </div>
-              {/* /.col-md-6 */}
               <div className="col-lg-6">
                 <div className="card">
                   <div className="card-header border-0">
@@ -84,7 +75,6 @@ class Dashboard extends React.Component {
                         <span className="text-muted">CONVERSION RATE</span>
                       </p>
                     </div>
-                    {/* /.d-flex */}
                     <div className="d-flex justify-content-between align-items-center border-bottom mb-3">
                       <p className="text-warning text-xl">
                         <i className="ion ion-ios-cart-outline" />
@@ -97,7 +87,6 @@ class Dashboard extends React.Component {
                         <span className="text-muted">SALES RATE</span>
                       </p>
                     </div>
-                    {/* /.d-flex */}
                     <div className="d-flex justify-content-between align-items-center mb-0">
                       <p className="text-danger text-xl">
                         <i className="ion ion-ios-people-outline" />
@@ -110,17 +99,12 @@ class Dashboard extends React.Component {
                         <span className="text-muted">REGISTRATION RATE</span>
                       </p>
                     </div>
-                    {/* /.d-flex */}
                   </div>
                 </div>
               </div>
-              {/* /.col-md-6 */}
             </div>
-            {/* /.row */}
           </div>
-          {/* /.container-fluid */}
         </div>
-        {/* /.content */}
       </div>
     );
   }
