@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
               <div className="col-lg-6">
                 <div className="card">
                   <div className="card-header border-0">
-                    <h3 className="card-title">Online Store Overview</h3>
+                    <h3 className="card-title">Branches Overview</h3>
                     <div className="card-tools">
                       <a href="#" className="btn btn-sm btn-tool">
                         <i className="fas fa-bars" />
@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
                           <i className="ion ion-android-arrow-up text-success" />
                           12%
                         </span>
-                        <span className="text-muted">CONVERSION RATE</span>
+                        <span className="text-muted">DELIVERIES COMPLETED</span>
                       </p>
                     </div>
                     <div className="d-flex justify-content-between align-items-center border-bottom mb-3">
@@ -84,7 +84,7 @@ class Dashboard extends React.Component {
                           <i className="ion ion-android-arrow-up text-warning" />
                           0.8%
                         </span>
-                        <span className="text-muted">SALES RATE</span>
+                        <span className="text-muted">ORDERS</span>
                       </p>
                     </div>
                     <div className="d-flex justify-content-between align-items-center mb-0">
@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
                           <i className="ion ion-android-arrow-down text-danger" />
                           1%
                         </span>
-                        <span className="text-muted">REGISTRATION RATE</span>
+                        <span className="text-muted">STATUS RATE</span>
                       </p>
                     </div>
                   </div>
@@ -110,9 +110,12 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount = () => {
+    var user = firebase.auth().currentUser.uid;
+    
     firebase
       .firestore()
       .collection("branches")
+      .where("creator", "==", user)
       .onSnapshot((serverUpdate) => {
         const branches = serverUpdate.docs.map((_docs) => {
           const data = _docs.data();

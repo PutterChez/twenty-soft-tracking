@@ -5,7 +5,7 @@ import {GoogleMap,
       Marker, 
       InfoWindow,
       DirectionsRenderer, 
-      Polyline} from "react-google-maps";
+      } from "react-google-maps";
 // import * as locationData from "./locationSample.json"
 import mapStyles from "./mapStyles";
 
@@ -20,6 +20,7 @@ class PackageMap extends React.Component {
       startPinLng:  null,
       destinationPinLat: null,
       destinationPinLng: null,
+      direction: null,
     }
   }
 
@@ -27,11 +28,11 @@ class PackageMap extends React.Component {
     const {parcel} = this.props;
 
     var geocoder= new window.google.maps.Geocoder();
+
     geocoder.geocode( { 'address': parcel.start}, function(results, status) {
       if (status == 'OK') {
         this.setState({startPinLat: parseFloat(results[0].geometry.location.lat())});
         this.setState({startPinLng: parseFloat(results[0].geometry.location.lng())});
-        
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
@@ -41,10 +42,24 @@ class PackageMap extends React.Component {
       if (status == 'OK') {
         this.setState({destinationPinLat: parseFloat((results[0].geometry.location.lat()))});
         this.setState({destinationPinLng: parseFloat((results[0].geometry.location.lng()))});
-        
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
+    }.bind(this));
+
+    
+    // load api data here then replace at origin and destination in DirectionService.route
+    const DirectionsService = new window.google.maps.DirectionsService();
+    DirectionsService.route({
+      'origin': this.state.parcel.start,
+      'destination': this.state.parcel.end,
+      'travelMode': window.google.maps.TravelMode.DRIVING}, function(result, status) {
+      if (status === window.google.maps.DirectionsStatus.OK) {
+        this.setState({direction: result});
+      }else {
+        alert('Route was not successful for the following reason: ' + status);
+      }
+
     }.bind(this));
   }
 
@@ -55,6 +70,7 @@ class PackageMap extends React.Component {
       return <div></div>
     }
     else{
+      console.log(this.state.direction);
       return ( 
           <GoogleMap 
             defaultZoom={10} 
@@ -92,6 +108,7 @@ class PackageMap extends React.Component {
               lng: this.state.destinationPinLng
             }}
           />
+          <DirectionsRenderer directions={this.state.direction} options={{markerOptions: {visible: false}}}/>
       
         {this.state.openInfo &&(
             <InfoWindow 

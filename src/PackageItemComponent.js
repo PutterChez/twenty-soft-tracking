@@ -25,6 +25,7 @@ class PackageItemComponent extends React.Component {
                   />
                 </div>
                 <h3 className="widget-user-username">{_package.name}</h3>
+                <h2 className="widget-user-desc">{_package.id}</h2>
                 <h5 className="widget-user-desc">
                   {new Intl.DateTimeFormat("en-US", {
                     year: "numeric",
