@@ -1,4 +1,5 @@
 import React from "react";
+import GoogleMap from "./PackageMap"
 
 const firebase = require("firebase");
 
@@ -172,6 +173,7 @@ class PackageInfo extends React.Component {
                     <div className="tab-content">
                       <div className="active tab-pane" id="activity">
                         <b>Map goes here</b>
+                        <GoogleMap/>
                       </div>
                       {/* /.tab-pane */}
                       <div className="tab-pane" id="timeline">
