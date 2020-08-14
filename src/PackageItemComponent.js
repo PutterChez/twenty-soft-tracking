@@ -68,7 +68,7 @@ class PackageItemComponent extends React.Component {
                 <a href="#" className="nav-link">
                   Location
                   <span className="float-right badge bg-danger">
-                    {_package.location[0]} , {_package.location[1]}
+                    {_package.location[0]}, {_package.location[1]}
                   </span>
                 </a>
               </li>

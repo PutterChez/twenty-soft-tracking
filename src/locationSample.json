@@ -1,0 +1,94 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "ItemID": 1,
+        "VehicleID": 1,
+        "DriverID": 1,
+        "ReceiverID": 1,
+        "NAME": "Siam Paragon",
+        "ADDRESS": "991 Rama I Rd, Pathum Wan, Pathum Wan District, Bangkok 10330",        
+        "PICTURE": null,
+        "ESTTIME": 30,
+        "PATH":[
+           [100.5350,13.7469] 
+          ,[100.5488, 13.7994]
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100.5350, 13.7469]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "ItemID": 1,
+        "VehicleID": 1,
+        "DriverID": 1,
+        "ReceiverID": 1,
+        "NAME": "Chatuchak Market",
+        "ADDRESS": "Kamphaeng Phet 2 Rd, Chatuchak, Bangkok 10900",         
+        "PICTURE": null,
+        "ESTTIME": 30,
+        "PATH":[
+           [100.5488,13.7994] 
+          ,[100.5350, 13.7469]
+        ]
+        
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100.5488, 13.7994]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "ItemID": 1,
+        "VehicleID": 1,
+        "DriverID": 1,
+        "ReceiverID": 1,
+        "NAME": "Ladkrabang",       
+        "ADDRESS": "Chalongkrung Road, Ladkrabang, Bangkok 10520 Thailand",       
+        "PICTURE": null,
+        "ESTTIME": 30,
+        "PATH":[
+           [100.7943,13.7506] 
+          ,[100.5101, 13.7261]
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100.7943, 13.7506]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "ItemID": 1,
+        "VehicleID": 1,
+        "DriverID": 1,
+        "ReceiverID": 1,
+        "NAME": "Icon Siam",
+        "ADDRESS": "299 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600",     
+        "PICTURE": null,
+        "ESTTIME": 30,
+        "PATH":[
+           [100.5101,13.7261] 
+          ,[100.7943, 13.7506]
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100.5101, 13.7261]
+      }
+    }
+      ]
+}
