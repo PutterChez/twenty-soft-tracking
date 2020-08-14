@@ -27,7 +27,7 @@ class BranchListItem extends React.Component {
     var style = {
       width: progress + "%",
     };
-
+    
     return (
       <tr>
         <td>
