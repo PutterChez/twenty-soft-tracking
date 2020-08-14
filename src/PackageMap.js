@@ -14,29 +14,48 @@ class PackageMap extends React.Component {
     super();
     this.state = {
       parcel: {},
-      selectedLoaction: null,
-      setSelectedLocation: null,
-      googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`,
-      loadingElement: <div style={{height: "100%"}}/>,
-      containerElement: <div style={{height: "100%"}}/>,
-      mapElement: <div style={{height: "100%"}}/>,
-
+      selectedLocation: null,
+      openInfo: false,
+      startPinLat:  null,
+      startPinLng:  null,
+      destinationPinLat: null,
+      destinationPinLng: null,
     }
   }
-  
+
+  componentDidMount() {
+    const {parcel} = this.props;
+
+    var geocoder= new window.google.maps.Geocoder();
+    geocoder.geocode( { 'address': parcel.start}, function(results, status) {
+      if (status == 'OK') {
+        this.setState({startPinLat: parseFloat(results[0].geometry.location.lat())});
+        this.setState({startPinLng: parseFloat(results[0].geometry.location.lng())});
+        
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    }.bind(this));
+
+    geocoder.geocode( { 'address': parcel.destination}, function(results, status) {
+      if (status == 'OK') {
+        this.setState({destinationPinLat: parseFloat((results[0].geometry.location.lat()))});
+        this.setState({destinationPinLng: parseFloat((results[0].geometry.location.lng()))});
+        
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    }.bind(this));
+  }
+
   render() {
     const {parcel} = this.props;
 
-    console.log(parcel);
-    
-    console.log(parcel.location);
-
-    if(!parcel.location){
+    if((!parcel.location) && (!this.state.startPinLat)){
       return <div></div>
     }
     else{
       return ( 
-        <div style={{width:'100vw', height: '100vh'}}> 
           <GoogleMap 
             defaultZoom={10} 
             defaultCenter={{lat:  13.756331, lng:100.501762}}
@@ -44,61 +63,59 @@ class PackageMap extends React.Component {
           >
           
           <Marker 
-            key={parcel.senderID} 
+            key={parcel.name} 
             position={{
               lat: parcel.location[1],
               lng: parcel.location[0]
             }}
             onClick={() =>{
-              this.state.setSelectedLocation(parcel.location)
+              this.setState({selectedLocation: parcel, openInfo: true});
             }}
             icon={{
               url:'/package.png',
               scaledSize: new window.google.maps.Size(35, 35)
             }}
           />
-        )
-        
+
+          <Marker 
+            key={parcel.senderID} 
+            position={{
+              lat: this.state.startPinLat,
+              lng: this.state.startPinLng
+            }}
+          />
+
+          <Marker 
+            key={parcel.receiverID} 
+            position={{
+              lat: this.state.destinationPinLat,
+              lng: this.state.destinationPinLng
+            }}
+          />
       
-              {this.state.selectedLocation &&(                                      //info window, display on click, reset to null on close
+        {this.state.openInfo &&(
+            <InfoWindow 
+              position={{
+                lat: this.state.selectedLocation.location[1],
+                lng: this.state.selectedLocation.location[0],
+              }}
+              onCloseClick= {()=>{
+                this.setState({openInfo: false});
+              }}
+            >
+              <div> 
+                <h2>{this.state.selectedLocation.name}</h2>
+                <p><b>The package is being delivered from the following address:</b></p>
+                <p><b>{this.state.selectedLocation.start}</b></p>
+                <p><b>Estimate time of arrival: {this.state.selectedLocation.estTime} minutes</b></p>
+              </div>
+            </InfoWindow>             
               
-                <InfoWindow 
-                  position={{
-                    lat: this.state.selectedLocation.location[1],
-                    lng: this.state.selectedLocation.location[0],
-                  }}
-                  onCloseClick= {()=>{
-                    this.state.setSelectedLocation(null);
-                  }}
-                >
-                  <div> 
-                    <h2>{this.state.selectedLocation.properties.NAME}</h2>
-                    <p><b>The package is being delivered from the following address:</b></p>
-                    <p><b>{this.state.selectedLocation.properties.ADDRESS}</b></p>
-                    <p><b>Estimate time of arrival: {this.state.selectedLocation.properties.ESTTIME} minutes</b></p>
-                    <p><b>{this.state.selectedLocation.properties.PATH}</b></p>
-                    
-                  </div>
-                </InfoWindow>   
-                //<Polyline path= {[{lat: 100.5350, lng: 13.7469} ,{lat: 100.5488, lng: 13.7994}]} options={{strokerColor: "#FF0000"}}></Polyline>          
-              )}
-          </GoogleMap>
-      </div>
+        )}
+        </GoogleMap>
       );
     }
   }
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(PackageMap));
-
-export default PackageMap {
-  return( 
-    <div style={{width:'100vw', height: '100vh'}}> 
-      <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-      loadingElement={<div style={{height: "100%"}}/>}
-      containerElement={<div style={{height: "100%"}}/>}
-      mapElement={<div style={{height: "100%"}}/>}  
-      />
-    </div>
-  );
-}
+export default withScriptjs(withGoogleMap(PackageMap));

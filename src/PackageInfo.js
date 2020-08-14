@@ -178,7 +178,13 @@ class PackageInfo extends React.Component {
                         <div className="tab-content">
                           <div className="active tab-pane" id="activity">
                             <b>Map goes here</b>
-                            <PackageMap parcel={this.state.parcel}></PackageMap>
+                            
+                              <div style={{width:'60vw', height: '100vh'}}> 
+                                <PackageMap parcel={this.state.parcel} googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+                                loadingElement={<div style={{height: "100%"}}/>}
+                                containerElement={<div style={{height: "100%"}}/>}
+                                mapElement={<div style={{height: "100%"}}/>}  ></PackageMap>
+                              </div>
                           </div>
                           {/* /.tab-pane */}
                           <div className="tab-pane" id="timeline">
